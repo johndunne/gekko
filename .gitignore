@@ -1,3 +1,6 @@
+web/vue/dist/UIconfig.js
+web/vue/public/UIconfig.js
+
 # Numerous always-ignore extensions
 *.diff
 *.err
