@@ -30,6 +30,14 @@ var dir = dirs.gekko + adapter.dataDirectory;
 
 var fullPath = [dir, dbName].join('/');
 
+if (!fs.existsSync(fullPath)) {
+  var dbName = config.watch.exchange.toLowerCase() + '_' + config.watch.currency.toLowerCase() + '_' + config.watch.asset.toLowerCase() + '_' + version + '.db';
+  var dir = dirs.gekko + adapter.dataDirectory;
+
+  var fullPath = [dir, dbName].join('/');
+}
+
+
 var mode = util.gekkoMode();
 if (mode === 'realtime' || mode === 'importer') {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir);
@@ -52,7 +60,7 @@ module.exports = {
     var db = new sqlite3.Database(fullPath);
     db.run('PRAGMA synchronous = ' + syncMode);
     db.run('PRAGMA journal_mode = ' + journalMode);
-    db.configure('busyTimeout', 10000);
+    db.configure('busyTimeout', 1500);
     return db;
   }
 };
